@@ -36,9 +36,7 @@ public class EmployeeDAO {
     }
 
     public double calculatePay(int employeeId, Date startDate, Date endDate) {
-        // Implementación para calcular el pago según las horas trabajadas y la tarifa
-        // Ejemplo básico
-        double hourlyRate = 20.0; // Tarifa por hora de ejemplo
+        double hourlyRate = 20.0;
         int totalHours = calculateWorkedHours(employeeId, startDate, endDate);
         return totalHours * hourlyRate;
     }
@@ -53,7 +51,6 @@ public class EmployeeDAO {
         return jdbcTemplate.query(sql, new EmployeeRowMapper());
     }
 
-    // Clase interna para mapear resultados de la base de datos a objetos Employee
     private static class EmployeeRowMapper implements RowMapper<Employee> {
         @Override
         public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
