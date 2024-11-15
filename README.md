@@ -116,6 +116,5 @@ Este proyecto es una API RESTful para la gestión de empleados, la cual permite 
 1. Configura MySQL y crea la base de datos `employee_management`.
 2. Agrega las credenciales de acceso a MySQL en el archivo `application.properties`.
 
----
 
 
