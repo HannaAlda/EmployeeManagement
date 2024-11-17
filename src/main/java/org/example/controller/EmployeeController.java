@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Employee;
+import org.example.model.EmployeeWorkedHours;
 import org.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,53 +17,64 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    // Endpoint 1.1: Crear un empleado
     @PostMapping
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
-        boolean success = employeeService.createEmployee(employee);
-        return ResponseEntity.ok("{\"success\": " + success + "}");
+        String result = employeeService.createEmployee(employee);
+        if ("success".equals(result)) {
+            return ResponseEntity.ok("{\"success\": true, \"id\": " + employee.getId() + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"" + result + "\"}");
     }
 
-    // Endpoint 1.2: Registrar horas trabajadas para un empleado
     @PostMapping("/work-hours")
-    public ResponseEntity<?> registerWorkHours(@RequestParam int employeeId,
-                                               @RequestParam int workedHours,
-                                               @RequestParam Date workedDate) {
-        boolean success = employeeService.registerWorkHours(employeeId, workedHours, workedDate);
-        return ResponseEntity.ok("{\"success\": " + success + "}");
+    public ResponseEntity<?> registerWorkHours(@RequestBody EmployeeWorkedHours workedHours) {
+        String result = employeeService.registerWorkHours(workedHours);
+        if ("success".equals(result)) {
+            return ResponseEntity.ok("{\"success\": true, \"id\": " + workedHours.getId() + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"" + result + "\"}");
     }
 
-    // Endpoint 1.3: Obtener todos los empleados
-    @GetMapping
-    public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+    @GetMapping("/by-job")
+    public ResponseEntity<?> getEmployeesByJob(@RequestParam int jobId) {
+        List<Employee> employees = employeeService.getEmployeesByJob(jobId);
+        if (employees != null) {
+            return ResponseEntity.ok("{\"success\": true, \"employees\": " + employees + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"Job does not exist\"}");
     }
 
-    // Endpoint 1.4: Calcular horas trabajadas de un empleado en un rango de fechas
     @GetMapping("/calculate-work-hours")
     public ResponseEntity<?> calculateWorkedHours(@RequestParam int employeeId,
                                                   @RequestParam Date startDate,
                                                   @RequestParam Date endDate) {
-        int totalWorkedHours = employeeService.calculateWorkedHours(employeeId, startDate, endDate);
-        return ResponseEntity.ok("{\"total_worked_hours\": " + totalWorkedHours + "}");
+        String result = employeeService.calculateWorkedHours(employeeId, startDate, endDate);
+        if (!"error".equals(result)) {
+            return ResponseEntity.ok("{\"success\": true, \"total_worked_hours\": " + result + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"Invalid input or employee not found\"}");
     }
 
-    // Endpoint 1.5: Calcular pago de un empleado en un rango de fechas
     @GetMapping("/calculate-pay")
     public ResponseEntity<?> calculatePay(@RequestParam int employeeId,
                                           @RequestParam Date startDate,
                                           @RequestParam Date endDate) {
-        double pay = employeeService.calculatePay(employeeId, startDate, endDate);
-        return ResponseEntity.ok("{\"payment\": " + pay + "}");
+        String result = employeeService.calculatePay(employeeId, startDate, endDate);
+        if (!"error".equals(result)) {
+            return ResponseEntity.ok("{\"success\": true, \"payment\": " + result + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"Invalid input or employee not found\"}");
     }
 
-    // Endpoint 1.6: Obtener empleados en un rango de salarios, con orden y tamaño de página
     @GetMapping("/employees-by-salary")
-    public ResponseEntity<List<Employee>> getEmployeesBySalary(
-            @RequestParam double minSalary, @RequestParam double maxSalary,
-            @RequestParam String order, @RequestParam int size) {
+    public ResponseEntity<?> getEmployeesBySalary(@RequestParam double minSalary,
+                                                  @RequestParam double maxSalary,
+                                                  @RequestParam String order,
+                                                  @RequestParam int size) {
         List<Employee> employees = employeeService.getEmployeesBySalary(minSalary, maxSalary, order, size);
-        return ResponseEntity.ok(employees);
+        if (employees != null) {
+            return ResponseEntity.ok("{\"success\": true, \"employees\": " + employees + "}");
+        }
+        return ResponseEntity.badRequest().body("{\"success\": false, \"error\": \"Invalid input or no results\"}");
     }
 }

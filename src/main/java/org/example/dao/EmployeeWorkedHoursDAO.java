@@ -17,20 +17,17 @@ public class EmployeeWorkedHoursDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Método para registrar horas trabajadas de un empleado
     public int registerWorkedHours(EmployeeWorkedHours workedHours) {
         String sql = "INSERT INTO employee_worked_hours (employee_id, worked_hours, worked_date) VALUES (?, ?, ?)";
         return jdbcTemplate.update(sql, workedHours.getEmployeeId(), workedHours.getWorkedHours(), new Date(workedHours.getWorkedDate().getTime()));
     }
 
-    // Método para obtener el total de horas trabajadas de un empleado entre dos fechas
     public int getTotalWorkedHours(int employeeId, Date startDate, Date endDate) {
         String sql = "SELECT SUM(worked_hours) FROM employee_worked_hours WHERE employee_id = ? AND worked_date BETWEEN ? AND ?";
         Integer totalHours = jdbcTemplate.queryForObject(sql, new Object[]{employeeId, startDate, endDate}, Integer.class);
         return (totalHours != null) ? totalHours : 0;
     }
 
-    // RowMapper para mapear los resultados de la consulta a objetos EmployeeWorkedHours
     private static class EmployeeWorkedHoursRowMapper implements RowMapper<EmployeeWorkedHours> {
         @Override
         public EmployeeWorkedHours mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -1,7 +1,7 @@
 package org.example.model;
 
 import lombok.Data;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class EmployeeWorkedHours {
@@ -10,5 +10,3 @@ public class EmployeeWorkedHours {
     private int workedHours;
     private Date workedDate;
 }
-
-

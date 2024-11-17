@@ -18,7 +18,7 @@ public class EmployeeWorkedHoursController {
     @PostMapping("/registerWorkedHours")
     public ResponseEntity<?> registerWorkedHours(@RequestBody EmployeeWorkedHours workedHours) {
         int result = employeeWorkedHoursService.registerWorkedHours(workedHours);
-        boolean success = result > 0; // Convierte el resultado a boolean
+        boolean success = result > 0;
         return ResponseEntity.ok("{\"success\": " + success + "}");
     }
 
