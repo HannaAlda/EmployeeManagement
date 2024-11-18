@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "51f4730f-6eee-44eb-8182-1bb2d764f461",
+		"name": "EmployeeManagement API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11474684",
+		"_collection_link": "https://warped-escape-343042.postman.co/workspace/ChallengeScraping~9cb38f4a-c59e-4d84-aaec-23f61d571fcd/collection/11474684-51f4730f-6eee-44eb-8182-1bb2d764f461?action=share&source=collection_link&creator=11474684"
+	},
+	"item": [
+		{
+			"name": "/api/employees",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"position\": \"Developer\",\r\n  \"salary\": 50000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/employees/work-hours",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"position\": \"Developer\",\r\n  \"salary\": 50000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/employeesyees/by-job",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees"
+					]
+				},
+				"description": "Obtener todos"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/employees/calculate-work-hours",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employees/calculate-pay?employeeId=1&startDate=2024-01-01&endDate=2024-01-31\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees",
+						"calculate-pay"
+					],
+					"query": [
+						{
+							"key": "employeeId",
+							"value": "1"
+						},
+						{
+							"key": "startDate",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-01-31\n"
+						}
+					]
+				},
+				"description": "Calcular el pago"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/employees/calculate-pay",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employees/calculate-pay?employeeId=1&startDate=2024-01-01&endDate=2024-01-31\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees",
+						"calculate-pay"
+					],
+					"query": [
+						{
+							"key": "employeeId",
+							"value": "1"
+						},
+						{
+							"key": "startDate",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-01-31\n"
+						}
+					]
+				},
+				"description": "Calcular el pago"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/employees/employees-by-salary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/employees/employees-by-salary?minSalary=30000&maxSalary=70000&order=asc\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"employees",
+						"employees-by-salary"
+					],
+					"query": [
+						{
+							"key": "minSalary",
+							"value": "30000"
+						},
+						{
+							"key": "maxSalary",
+							"value": "70000"
+						},
+						{
+							"key": "order",
+							"value": "asc\n"
+						}
+					]
+				},
+				"description": "Obtener empleados por rango de salario "
+			},
+			"response": []
+		}
+	]
+}
